@@ -116,13 +116,11 @@ function addWall() {
 }
 
 function addRack(x, y, z, color1, color2) {
-    // Create beveled box
     const size = 1;
     const height = 2;
-    const bevelSize = 0.05;
+    const depth = 1;
     
-    // Create main box
-    const boxGeometry = new THREE.BoxGeometry(size, height, size, 1, 1, 1, bevelSize);
+    const boxGeometry = new THREE.BoxGeometry(size, height, depth);
     const boxMaterial = new THREE.ShaderMaterial({
         vertexShader: vertexShader,
         fragmentShader: fragmentShader,
@@ -132,7 +130,6 @@ function addRack(x, y, z, color1, color2) {
         }
     });
     
-    // Create edges for bevel effect
     const edgesGeometry = new THREE.EdgesGeometry(boxGeometry);
     const edgesMaterial = new THREE.LineBasicMaterial({ 
         color: 0x000000,
@@ -146,7 +143,7 @@ function addRack(x, y, z, color1, color2) {
     const box = new THREE.Mesh(boxGeometry, boxMaterial);
     const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
     
-    // Scale down the box slightly to make room for the bevel
+    // Scale down the box slightly to make room for the edges
     box.scale.set(0.97, 0.97, 0.97);
     
     // Add both to the group
